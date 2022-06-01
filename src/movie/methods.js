@@ -1,70 +1,56 @@
 const Movie = require("./model");
 
 exports.addMovie = async (movieObj) => {
-    try {
-        await Movie.create(movieObj)
-    }catch (error){
-        console.log(error)
-    }
-} 
-
-exports.listMovies = async (filterObj) => {
-    try {
-        const updateResult = await Movie.updateOne(filterObj, updateObj);
-        if(updateResult.modifiedCount > 0) {
-            console.log("Update successul");
-        } else {
-            console.log("was not updated")
-        }
-        } catch (error) {
-            console.log(error)
-    }
-}
-
-exports.deleteMovies = async (filterObj) => {
-    try {
-        const deleteResult = await Movie.deleteOne(filterObj, updateObj);
-        if(deleteResult.modifiedCount > 0) {
-            console.log("Sucessfully deleted");
-        } else {
-            console.log("Unable to delte")
-        }
-        } catch (error) {
-            console.log(error)
-    }
-}
-
-exports.findMovieTitle = async (movieObj) => {
-    try {
-        return await Movie.find({ title: movieObj.title})
-    } catch (error) {
-        console.log(error)
-}
-}
-
-exports.findActor = async (movieObj) => {
-    try {
-        return await Movie.find({ title: movieObj.title})
-    } catch (error) {
-        console.log(error)
-}
-}
+	try {
+		await Movie.create(movieObj);
+	} catch (error) {
+		console.log(error);
+	}
+};
 
 
-exports.findRating = async (movieObj) => {
-    try {
-        return await Movie.find({ title: movieObj.title})
-    } catch (error) {
-        console.log(error)
-}
-}
 
-function removeUndefinedFromObject(intialObject) {
-    const cleanObject = {}
-    Object.keys(intialObject).forEach(key => {
-        if (intialObject[key] != undefined) {
-            cleanObject[key] = initialObject[key]
-        }
-    });
-    return cleanObject;
-}
+exports.listMovie = async (movieObj) => {
+	try {
+		const movieList = await Movie.find({});
+		console.log(movieList);
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+exports.updateMovie = async (movieObj) => {
+	try {
+		await Movie.updateOne(
+			{ title: movieObj.title }, 
+			{ actor: movieObj.actor },
+			{ director: movieObj.director },
+		);
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+
+exports.deleteMovie = async (movieObj) => {
+	try {
+		await Movie.deleteOne(movieObj);
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+
+
+exports.findMovie = async (movieObj) => {
+	try {
+		const movieFind = await Movie.findOne(movieObj);
+		if (movieFind) {
+			console.log(movieFind);
+		} else {
+			console.log("Movie not found");
+		}
+	} catch (error) {
+		console.log(error);
+	}
+};
